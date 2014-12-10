@@ -49,17 +49,16 @@ public class Helper {
             DFAgentDescription[] result;
             try {
                 result = DFService.search(agent, template);
-                System.out.println("Added " + name + " Agent AID");
+                
                 if(result.length == 0){
-                    Thread.sleep(1000);
-                    continue;
+                    return null;
                 }
+                System.out.println("Added " + name + " Agent AID");
+                
                 return result[0].getName();
 
             } catch (FIPAException ex) {
                 System.out.println("FIPA ERROR");
-            } catch (InterruptedException ex) {
-                System.out.println("DELAY ERROR");
             }
             return null;
         }

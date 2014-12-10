@@ -23,7 +23,7 @@ public class MusicPlayer {
 
     public MusicPlayer() {
         initSongs();
-        
+        currentMusic = favoriteMusic;
         setMusicGenre(MusicGenreEnum.favorite);
     }
     
