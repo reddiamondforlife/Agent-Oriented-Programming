@@ -14,5 +14,9 @@ public class Rice extends Grains{
     public Rice(int quantity, int storageLimit, int lowerLimit) {
         super(quantity, storageLimit, lowerLimit);
     }
+ 
+    public Rice(float price){
+        super(price);
+    }
     
 }

@@ -13,13 +13,22 @@ public class Food {
     int quantity;
     int storageLimit;
     int lowerLimit;
+    float price = 1000000f;
 
     public Food(int quantity, int storageLimit, int lowerLimit) {
         this.quantity = quantity;
         this.storageLimit = storageLimit;
         this.lowerLimit = lowerLimit;
     }
+    
+    public Food(float price){
+        this.price = price;
+    }
 
+    public float getPrice() {
+        return price;
+    }
+    
     public int getQuantity() {
         return quantity;
     }

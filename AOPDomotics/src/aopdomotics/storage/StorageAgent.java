@@ -99,7 +99,7 @@ public class StorageAgent extends Agent {
         
         bill = foodStorage.checkStorageRebuy();
         
-        addBehaviour(new TickerBehaviour(this, 10000) {
+        addBehaviour(new TickerBehaviour(this, 5000) {
                 protected void onTick() {
                     System.out.println("On tick .");
                     if(bill.foods.size() == 0){
@@ -167,7 +167,7 @@ public class StorageAgent extends Agent {
 private class RequestPerformer extends Behaviour {
 
     private AID bestSeller; // The agent who provides the best offer
-    private int bestPrice; // The best offered price
+    private float bestPrice; // The best offered price
     private int repliesCnt = 0; // The counter of replies from seller agents
     private MessageTemplate mt; // The template to receive replies
     private int step = 0;
@@ -198,7 +198,7 @@ private class RequestPerformer extends Behaviour {
                     // Reply received
                     if (reply.getPerformative() == ACLMessage.PROPOSE) {
                         // This is an offer
-                        int price = Integer.parseInt(reply.getContent());
+                        float price = Float.valueOf(reply.getContent());
                         System.out.println("Received an offer from " + reply.getSender() + " to " + price);
                         if (bestSeller == null || price < bestPrice) {
                             // This is the best offer at present

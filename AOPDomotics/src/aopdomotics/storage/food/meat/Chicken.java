@@ -15,4 +15,7 @@ public class Chicken extends Meat{
         super(quantity, storageLimit, lowerLimit);
     }
     
+    public Chicken(float price){
+        super(price);
+    }
 }

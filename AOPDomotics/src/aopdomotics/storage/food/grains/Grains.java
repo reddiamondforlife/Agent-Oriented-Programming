@@ -17,4 +17,8 @@ public class Grains extends Food{
         super(quantity, storageLimit, lowerLimit);
     }
     
+    public Grains(float price){
+        super(price);
+    }
+    
 }

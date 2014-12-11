@@ -15,4 +15,8 @@ public class Bacon extends Meat{
         super(quantity, storageLimit, lowerLimit);
     }
     
+    public Bacon(float price){
+        super(price);
+    }
+    
 }
