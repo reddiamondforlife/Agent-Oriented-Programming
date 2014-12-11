@@ -99,10 +99,11 @@ public class StorageAgent extends Agent {
         
         bill = foodStorage.checkStorageRebuy();
         
-        addBehaviour(new TickerBehaviour(this, 6000) {
+        addBehaviour(new TickerBehaviour(this, 10000) {
                 protected void onTick() {
                     System.out.println("On tick .");
                     if(bill.foods.size() == 0){
+                        System.out.println(" . no bill to buy, try again later.");
                         return;
                     }
                     System.out.println(". need to buy");
@@ -186,7 +187,7 @@ private class RequestPerformer extends Behaviour {
                 cfp.setReplyWith("cfp" + System.currentTimeMillis()); // Unique value
                 myAgent.send(cfp);
                 // Prepare the template to get proposals
-                mt = MessageTemplate.and(MessageTemplate.MatchConversationId("book-trade"),
+                mt = MessageTemplate.and(MessageTemplate.MatchConversationId("supermarket-trade"),
                         MessageTemplate.MatchInReplyTo(cfp.getReplyWith()));
                 step = 1;
                 break;
@@ -198,10 +199,12 @@ private class RequestPerformer extends Behaviour {
                     if (reply.getPerformative() == ACLMessage.PROPOSE) {
                         // This is an offer
                         int price = Integer.parseInt(reply.getContent());
+                        System.out.println("Received an offer from " + reply.getSender() + " to " + price);
                         if (bestSeller == null || price < bestPrice) {
                             // This is the best offer at present
                             bestPrice = price;
                             bestSeller = reply.getSender();
+                            System.out.println("Received new best price " + bestPrice + " from " + bestSeller);
                         }
                     }
                     repliesCnt++;
@@ -210,6 +213,7 @@ private class RequestPerformer extends Behaviour {
                         step = 2;
                     }
                 } else {
+                    System.out.println("Got no message");
                     block();
                 }
                 break;
@@ -218,18 +222,27 @@ private class RequestPerformer extends Behaviour {
                 ACLMessage order = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
                 order.addReceiver(bestSeller);
                 order.setContent(bill.getJson().toString());
-                order.setConversationId("book-trade");
+                order.setConversationId("supermarket-trade");
                 order.setReplyWith("order" + System.currentTimeMillis());
                 myAgent.send(order);
                 // Prepare the template to get the purchase order reply
-                mt = MessageTemplate.and(MessageTemplate.MatchConversationId("book-trade"),
+                mt = MessageTemplate.and(MessageTemplate.MatchConversationId("supermarket-trade"),
                         MessageTemplate.MatchInReplyTo(order.getReplyWith()));
+        
+                try {
+                    Thread.sleep(250); //wait enough time so the supermarket agent can respond with a confirm.
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(StorageAgent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
                 step = 3;
                 break;
             case 3:
                 // Receive the purchase order reply
+                System.out.println("Waiting for reply");
                 reply = myAgent.receive(mt);
                 if (reply != null) {
+                    System.out.println("I did get an inform reply");
                     // Purchase order reply received
                     if (reply.getPerformative() == ACLMessage.INFORM) {
                         // Purchase successful. We can terminate
@@ -239,6 +252,7 @@ private class RequestPerformer extends Behaviour {
                     }
                     step = 4;
                 } else {
+                    System.out.println("I didnt get an inform reply");
                     block();
                 }
                 break;

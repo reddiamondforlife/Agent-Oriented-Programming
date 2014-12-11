@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,6 +18,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Random;
 
 /**
  *
@@ -83,7 +84,8 @@ public class SupermarketAgent extends Agent {
                 //Integer price = (Integer) catalogue.get(title);
                     // The requested book is available for sale. Reply with the price
                 reply.setPerformative(ACLMessage.PROPOSE);
-                //reply.setContent(String.valueOf(price.intValue()));
+                Random r = new Random();
+                reply.setContent(String.valueOf(r.nextInt(25)));
                 myAgent.send(reply);
             }
         }

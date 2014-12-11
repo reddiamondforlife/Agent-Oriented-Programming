@@ -71,8 +71,8 @@ public class FoodStorage {
         for(Food item : foods){
             if(item.getQuantity() <= item.getLowerLimit()){
                 System.out.println("I need to rebuy " + item.getClass().getSimpleName());
-                bill.getFoods().add(item);
-                
+                item.setQuantity(item.buyQuantity());
+                bill.getFoods().add(item);                
             }
         }
         return bill;
