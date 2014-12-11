@@ -248,7 +248,8 @@ private class RequestPerformer extends Behaviour {
                         // Purchase successful. We can terminate
                         System.out.println(bill.getJson().toString() + " successfully purchased.");
                         System.out.println("Price = " + bestPrice);
-                        myAgent.doDelete();
+                        foodStorage.addFood(bill);
+                        bill.foods.clear();
                     }
                     step = 4;
                 } else {

@@ -42,6 +42,15 @@ public class FoodStorage {
             foods.add(food);
         }
     }
+    
+    public void addFood(GroceryBill bill){
+        for(Food item : bill.getFoods()){
+            System.out.println("bill item has " + item.getQuantity());
+            addFood(item);
+        }
+        System.out.println("Bill added to food storage");
+        System.out.println("Food Storage :\n"+getStorage().toString());
+    }
 
     public void removeFood(Recipe recipe){
         Food[] consumed = new Food[3];
