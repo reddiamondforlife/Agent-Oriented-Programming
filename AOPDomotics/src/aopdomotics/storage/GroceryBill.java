@@ -32,7 +32,7 @@ public class GroceryBill {
         JsonObject foodItems = new JsonObject();
         for(Food item : foods){
             JsonElement jsonItem = new JsonObject();
-            foodItems.addProperty(item.getClass().getSimpleName().toLowerCase(), item.getQuantity());
+            foodItems.addProperty(item.getClass().getSimpleName().toLowerCase(), item.buyQuantity());
         }
         
         storage.add("Bill", foodItems);

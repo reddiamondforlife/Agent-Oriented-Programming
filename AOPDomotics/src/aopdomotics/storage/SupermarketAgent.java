@@ -136,6 +136,8 @@ public class SupermarketAgent extends Agent {
                 //propose price using decoded bill and random prices, format using US format to be able to decode the price using a comma instead of a dot. (needed for String to float)
                 reply.setContent(String.format(Locale.US, "%.2f", FoodJsonDecoder.decodeBill(billString, catalogue)));
                 myAgent.send(reply);
+            } else {
+                block();
             }
         }
     }

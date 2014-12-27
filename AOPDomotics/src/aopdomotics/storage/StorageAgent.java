@@ -92,7 +92,7 @@ public class StorageAgent extends Agent {
 
         bill = foodStorage.checkStorageRebuy();
 
-        addBehaviour(new TickerBehaviour(this, 20000) {
+        addBehaviour(new TickerBehaviour(this, 5000) {
             protected void onTick() {
                 if (bill.foods.isEmpty()) {
                     //Dont have to buy items because the bill is empty/are no items on the lit
@@ -243,6 +243,7 @@ public class StorageAgent extends Agent {
                             System.out.println("Bill Price = " + bestPrice);
                             //add food to storage
                             foodStorage.addFood(bill);
+                            bill.foods.clear();
                             //clear bill
                             bill = foodStorage.checkStorageRebuy();
 
@@ -259,7 +260,7 @@ public class StorageAgent extends Agent {
         }
 
         public boolean done() {
-            return ((step == 2 && bestSeller == null) || step == 3 || step == 4);
+            return step == 4;
         }
     } // End of inner class RequestPerformer
 

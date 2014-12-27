@@ -49,7 +49,7 @@ public class PersonAgent extends Agent {
         multimediaAgent = Helper.getAgent(this,"multimedia");
         
         
-        addBehaviour(new TickerBehaviour(this, 15000) {
+        addBehaviour(new TickerBehaviour(this, 7000) {
             @Override
             protected void onTick() {
                 System.out.println("On tick .");
@@ -66,7 +66,7 @@ public class PersonAgent extends Agent {
                 } catch (FIPAException fe) {
                 }
                 // Perform the request
-                //myAgent.addBehaviour(new PersonAgent.RecipeRequestPerformer());
+                myAgent.addBehaviour(new PersonAgent.RecipeRequestPerformer());
             }
         });
     }

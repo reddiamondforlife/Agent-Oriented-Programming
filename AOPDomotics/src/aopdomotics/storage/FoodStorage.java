@@ -47,6 +47,9 @@ public class FoodStorage {
     public void addFood(GroceryBill bill){
         //Add items after bought items from the grocery bill
         for(Food item : bill.getFoods()){
+            System.out.println(item.toString() + " from bill added to storage");
+            //set the quantity bought from the amount we wanted to buy, so it is easier to use the addFood(food) method
+            item.setQuantity(item.buyQuantity());
             addFood(item);
         }
         System.out.println("Bill added to food storage");
@@ -80,7 +83,6 @@ public class FoodStorage {
         for(Food item : foods){
             if(item.getQuantity() <= item.getLowerLimit()){
                 System.out.println("I need to rebuy " + item.getClass().getSimpleName());
-                item.setQuantity(item.buyQuantity());
                 bill.getFoods().add(item);                
             }
         }
