@@ -18,4 +18,9 @@ public class Tomato extends Vegetable{
     public Tomato(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Tomato: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

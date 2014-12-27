@@ -18,4 +18,9 @@ public class Chicken extends Meat{
     public Chicken(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Chicken: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

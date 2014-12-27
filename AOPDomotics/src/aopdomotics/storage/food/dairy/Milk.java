@@ -18,4 +18,9 @@ public class Milk extends Dairy {
     public Milk(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Milk: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

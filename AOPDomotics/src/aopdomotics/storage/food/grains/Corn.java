@@ -18,4 +18,9 @@ public class Corn extends Grains{
     public Corn(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Corn: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

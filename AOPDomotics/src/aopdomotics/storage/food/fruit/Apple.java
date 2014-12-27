@@ -18,4 +18,9 @@ public class Apple extends Fruit{
     public Apple(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Apple: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

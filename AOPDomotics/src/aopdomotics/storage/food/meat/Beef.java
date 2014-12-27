@@ -19,4 +19,9 @@ public class Beef extends Meat{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Beef: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

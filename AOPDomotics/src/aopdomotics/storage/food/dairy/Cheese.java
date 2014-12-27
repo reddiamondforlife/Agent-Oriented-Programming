@@ -18,4 +18,9 @@ public class Cheese  extends Dairy {
     public Cheese(float price){
         super(price);
     }
+    
+     @Override
+    public String toString() {
+        return "Cheese: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

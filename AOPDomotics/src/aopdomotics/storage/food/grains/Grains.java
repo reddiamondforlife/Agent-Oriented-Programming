@@ -21,4 +21,8 @@ public class Grains extends Food{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Grains: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

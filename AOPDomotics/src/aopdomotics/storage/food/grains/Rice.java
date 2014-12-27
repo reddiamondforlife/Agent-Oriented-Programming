@@ -19,4 +19,8 @@ public class Rice extends Grains{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Rice: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

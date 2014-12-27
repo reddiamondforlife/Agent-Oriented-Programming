@@ -50,9 +50,16 @@ public class Food {
     
     
     public int buyQuantity(){
-        if(quantity < lowerLimit){
+        if(quantity <= lowerLimit){
             return storageLimit - quantity;
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "Food: " + quantity + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

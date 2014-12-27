@@ -19,4 +19,8 @@ public class Potato extends Vegetable{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Potato: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

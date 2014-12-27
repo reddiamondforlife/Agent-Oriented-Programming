@@ -21,4 +21,9 @@ public class Fruit extends Food{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Fruit: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

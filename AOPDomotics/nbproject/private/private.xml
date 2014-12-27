@@ -3,33 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/fruit/Fruit.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/fruit/Apple.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/meat/Meat.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/vegetable/Potato.java</file>
             <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/RecipeAgent.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/grains/Grains.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/fruit/Strawberry.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/StorageAgent.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/dairy/Cheese.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/dairy/Milk.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/meat/Chicken.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/grains/Rice.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/Recipe.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/fruit/Lemon.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/meat/Bacon.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/GroceryBill.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/grains/Bread.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/FoodStorage.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/grains/Corn.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/vegetable/Vegetable.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/dairy/Dairy.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/vegetable/Onion.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/dairy/Butter.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/vegetable/Tomato.java</file>
             <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/SupermarketAgent.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/meat/Beef.java</file>
-            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/food/Food.java</file>
+            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/StorageAgent.java</file>
+            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/storage/FoodStorage.java</file>
+            <file>file:/C:/Users/Daan/Documents/Agent-Oriented-Programming/AOPDomotics/src/aopdomotics/person/PersonAgent.java</file>
         </group>
     </open-files>
 </project-private>

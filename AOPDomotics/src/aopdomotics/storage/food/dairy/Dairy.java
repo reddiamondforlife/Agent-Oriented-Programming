@@ -21,4 +21,8 @@ public class Dairy extends Food {
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Dairy: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

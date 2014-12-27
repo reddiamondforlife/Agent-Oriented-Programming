@@ -1,3 +1,4 @@
 AOPDomotics/build/classes/
 AOPDomotics/build/
 *.stackdump
+/AOPDomotics/dist/

@@ -19,4 +19,8 @@ public class Bacon extends Meat{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Bacon: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

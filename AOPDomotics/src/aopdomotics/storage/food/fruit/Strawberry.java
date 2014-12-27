@@ -19,4 +19,8 @@ public class Strawberry extends Fruit{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Stawberry: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -19,4 +19,8 @@ public class Onion extends Vegetable{
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Onions: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

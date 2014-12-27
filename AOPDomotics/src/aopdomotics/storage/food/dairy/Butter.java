@@ -19,4 +19,8 @@ public class Butter extends Dairy {
         super(price);
     }
     
+     @Override
+    public String toString() {
+        return "Butter: " + super.getQuantity() + " left"; //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -6,7 +6,6 @@
 package aopdomotics.storage;
 
 import aopdomotics.storage.food.Food;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ public class GroceryBill {
     }
 
     public JsonObject getJson(){
+        //Convert food items to json
         JsonObject storage = new JsonObject();
         
         JsonObject foodItems = new JsonObject();
@@ -41,7 +41,7 @@ public class GroceryBill {
     
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return foods.toString(); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
