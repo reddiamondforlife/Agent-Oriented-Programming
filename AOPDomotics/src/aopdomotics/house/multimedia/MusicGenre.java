@@ -23,7 +23,7 @@ public class MusicGenre {
             playlist.addSong(new Song("Antonio Vivaldi","The Four Seasons"));
             playlist.addSong(new Song("Samuel Barber","Adagio for Strings"));
         } else if(genre == MusicGenreEnum.favorite){
-            playlist.addSong(new Song("Tove Lo","Habits (Stay High)"));
+            playlist.addSong(new Song("Tom Day","Hiatus"));
             playlist.addSong(new Song("Foo Fighters","The Pretenders"));
             playlist.addSong(new Song("Disclosure","January"));
         } else if(genre == MusicGenreEnum.ambiance){

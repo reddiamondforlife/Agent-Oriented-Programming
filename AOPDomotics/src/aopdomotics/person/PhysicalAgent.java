@@ -16,22 +16,22 @@ import jade.lang.acl.ACLMessage;
  *
  * @author Daan
  */
-public class PsychologicalAgent extends PersonAgent {
+public class PhysicalAgent extends PersonAgent {
     
     private HeartbeatSensor heartBeat;
 
     protected void setup() {
         // Printout a welcome message
-        System.out.println("Hello! Psychological-agent " + getAID().getName() + " is ready.");
-        Helper.registerAgent(this, getAID(), "psychological-agent", "JADE-Psychological-Agent");
+        System.out.println("Hello! Physical-agent " + getAID().getName() + " is ready.");
+        Helper.registerAgent(this, getAID(), "physical-agent", "JADE-Physical-Agent");
 
-        heartBeat = new HeartbeatSensor();
         
-        addBehaviour(new TickerBehaviour(this, 1000) {
+        
+        /*addBehaviour(new TickerBehaviour(this, 1000) {
             protected void onTick() {
                 notifyMultimedia("Stress",heartBeat.getStressLevel());
             }
-        });
+        });*/
 
     }
     
