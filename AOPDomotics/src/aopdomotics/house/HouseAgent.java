@@ -24,60 +24,87 @@ import java.util.logging.Logger;
  *
  * @author Daan
  */
-public class HouseAgent extends Agent {
+public class HouseAgent extends Agent
+{
 
     protected AID personAgent;
-    
+
     protected AID multimediaAgent;
 
-    protected void setup() {
+    Window window;
+    AirSensor airSensor;
+    Heater heater;
+
+    protected void setup()
+    {
         // Printout a welcome message
         System.out.println("Hello! House-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "house-agent", "JADE-House-Agent");
+        
+        //Initialize a Window, Heater and AirSensor.
+        
+        window = new Window();
+        window.openWindow();
+        
+        heater = new Heater();
+        heater.turnOff();
+        
+        airSensor = new AirSensor(window, heater);
+        airSensor.run();
 
-        try {
+        try
+        {
             Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(HouseAgent.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (InterruptedException ex)
+        {
+            ex.printStackTrace();
         }
 
-        personAgent     = Helper.getAgent(this, "person");
+        personAgent = Helper.getAgent(this, "person");
         multimediaAgent = Helper.getAgent(this, "multimedia");
-        
+
         addBehaviour(new InformHandler());
-        
+
     }
 
-    
-
-    protected void takeDown() {
+    protected void takeDown()
+    {
         // Deregister from the yellow pages
-        try {
+        try
+        {
             DFService.deregister(this);
-        } catch (FIPAException fe) {
+        } catch (FIPAException fe)
+        {
             fe.printStackTrace();
         }
         System.out.println("House-agent" + getAID().getName() + " terminating.");
     }
 
-    private class InformHandler extends CyclicBehaviour {
-        
+    private class InformHandler extends CyclicBehaviour
+    {
+
         @Override
-        public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM); 
+        public void action()
+        {
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
             ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
+            if (msg != null)
+            {
                 // Message received. Process it 
                 System.out.println("House got an inform message");
                 String content = msg.getContent();
-                if(content.startsWith("Stress: ")){
-                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ")+ "Stress: ".length()));
+                if (content.startsWith("Stress: "))
+                {
+                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ") + "Stress: ".length()));
                     System.out.println("HOUSE: Found stress level " + stressLevel);
-                    
-                } else {
+
+                } else
+                {
                     System.out.println("Unknown message");
                 }
-            } else {
+            } else
+            {
                 block();
             }
         }

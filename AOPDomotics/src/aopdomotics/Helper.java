@@ -19,9 +19,11 @@ import java.util.logging.Logger;
  *
  * @author Daan
  */
-public class Helper {
+public class Helper
+{
 
-    public static boolean registerAgent(Agent agent, AID agentName, String serviceType, String serviceName) { //this , getAID()
+    public static boolean registerAgent(Agent agent, AID agentName, String serviceType, String serviceName)
+    { //this , getAID()
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(agentName);
 
@@ -30,39 +32,47 @@ public class Helper {
         sd.setName(serviceName);
         dfd.addServices(sd);
 
-        try {
+        try
+        {
             DFService.register(agent, dfd);
             return true;
-        } catch (FIPAException fe) {
+        } catch (FIPAException fe)
+        {
             fe.printStackTrace();
             return false;
         }
 
     }
 
-    public static AID getAgent(Agent agent, String name) {
-        while(true){
+    public static AID getAgent(Agent agent, String name)
+    {
+        while (true)
+        {
             DFAgentDescription template = new DFAgentDescription();
             ServiceDescription sd = new ServiceDescription();
-            sd.setType(name+"-agent");
+            sd.setType(name + "-agent");
             template.addServices(sd);
             DFAgentDescription[] result;
-            try {
+            try
+            {
                 result = DFService.search(agent, template);
-                System.out.println("Added " + name + " Agent AID");
-                if(result.length == 0){
+                //System.out.println("Added " + name + " Agent AID");
+                if (result.length == 0)
+                {
                     Thread.sleep(1000);
                     continue;
                 }
                 return result[0].getName();
 
-            } catch (FIPAException ex) {
+            } catch (FIPAException ex)
+            {
                 System.out.println("FIPA ERROR");
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException ex)
+            {
                 System.out.println("DELAY ERROR");
             }
             return null;
         }
     }
-    
+
 }
