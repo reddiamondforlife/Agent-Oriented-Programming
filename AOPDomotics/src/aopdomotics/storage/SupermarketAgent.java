@@ -127,7 +127,7 @@ public class SupermarketAgent extends Agent {
             MessageTemplate mt = MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.CFP), MessageTemplate.MatchConversationId("supermarket-trade"));
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                System.out.println("received offer request, sending offer");
+                //System.out.println("received offer request, sending offer");
                 // Message received. Process it
                 String billString = msg.getContent();
                 
@@ -150,7 +150,7 @@ public class SupermarketAgent extends Agent {
             MessageTemplate mt = MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL), MessageTemplate.MatchConversationId("supermarket-trade-accept"));
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                System.out.println("Received a purchase order confimation, sending inform message");
+                //System.out.println("Received a purchase order confimation, sending inform message");
                 // ACCEPT_PROPOSAL Message received. Process it
                 ACLMessage reply = msg.createReply();
                 //inform that we got the message.

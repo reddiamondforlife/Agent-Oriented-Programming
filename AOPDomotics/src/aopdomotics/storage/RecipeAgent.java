@@ -127,7 +127,7 @@ public class RecipeAgent extends Agent {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // ACCEPT_PROPOSAL Message received. Process it
-                System.out.println("Message received and process it");
+                //System.out.println("Message received and process it");
                 String title = msg.getContent();
                 ACLMessage reply = msg.createReply();
                 //When the person want the recipe, we inform them that he accepted the proposal
@@ -135,7 +135,7 @@ public class RecipeAgent extends Agent {
                 myAgent.send(reply);
 
                 //send to storage to inform recipe is consumed
-                System.out.println("sending inform to storage");
+                //System.out.println("sending inform to storage");
                 ACLMessage informStorage = new ACLMessage(ACLMessage.INFORM);
                 informStorage.addReceiver(storageAgent);
                 //give a json representation of the recipe, including the individual food items and quality of the items consumed
@@ -160,9 +160,9 @@ public class RecipeAgent extends Agent {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // Message received. Process it 
-                System.out.println("Storage inform about storage items");
+                //System.out.println("Storage inform about storage items");
                 String content = msg.getContent();
-                System.out.println("Storage inform : " + content);
+                //System.out.println("Storage inform : " + content);
                 //parse json 
 
                 //prepare recipes 

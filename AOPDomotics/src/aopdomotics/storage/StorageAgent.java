@@ -64,7 +64,7 @@ public class StorageAgent extends Agent {
             Logger.getLogger(HouseAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        addBehaviour(new InformHandler());
+        addBehaviour(new RecipeInformHandler());
         //Add all the food items with the respectible current quality | max quatity | lower storage limit
         foodStorage = new FoodStorage();
         //grains
@@ -92,15 +92,15 @@ public class StorageAgent extends Agent {
 
         bill = foodStorage.checkStorageRebuy();
 
-        addBehaviour(new TickerBehaviour(this, 5000) {
+        supermarketAgents = Helper.getAgents(this, "supermarket");
+        
+        addBehaviour(new TickerBehaviour(this, 24000) {
             protected void onTick() {
                 if (bill.foods.isEmpty()) {
                     //Dont have to buy items because the bill is empty/are no items on the lit
                     return;
                 }
                 System.out.println("Bill is available and I need to buy " + bill.toString());
-                // Update the list of seller agents
-                supermarketAgents = Helper.getAgents(myAgent, "supermarket");
                 // Perform the request
                 myAgent.addBehaviour(new RequestBillPerformer());
             }
@@ -111,7 +111,7 @@ public class StorageAgent extends Agent {
     }
 
     public void storageInformRecipe(Agent myAgent) {
-        System.out.println("On tick .");
+        //System.out.println("On tick .");
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
         sd.setType("recipe-agent");
@@ -141,7 +141,7 @@ public class StorageAgent extends Agent {
         System.out.println("Storage-agent" + getAID().getName() + " terminating.");
     }
 
-    private class InformHandler extends CyclicBehaviour {
+    private class RecipeInformHandler extends CyclicBehaviour {
 
         @Override
         public void action() {
@@ -149,9 +149,9 @@ public class StorageAgent extends Agent {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // Message received. Process it 
-                System.out.println("Storage got an inform message probably to decrease storage");
+                //System.out.println("Storage got an inform message probably to decrease storage");
                 String recipeString = msg.getContent();
-                System.out.println("content: " + recipeString);
+                //System.out.println("content: " + recipeString);
                 //parse json 
                 Recipe recipe = FoodJsonDecoder.decodeRecipe(recipeString);
                 foodStorage.removeFood(recipe);
@@ -211,14 +211,14 @@ public class StorageAgent extends Agent {
                             step = 2;
                         }
                     } else {
-                        System.out.println("Got no message");
+                        //System.out.println("Got no message");
                         block();
                     }
                     break;
                 case 2:
                     // Send the purchase order to the seller that provided the best offer
                     ACLMessage order = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-                    System.out.println("sending offer to " + bestSeller.getLocalName());
+                    //System.out.println("sending offer to " + bestSeller.getLocalName());
                     order.addReceiver(bestSeller);
                     order.setContent(bill.getJson().toString());
                     order.setConversationId("supermarket-trade-accept");
@@ -232,14 +232,14 @@ public class StorageAgent extends Agent {
 
                 case 3:
                     // Receive the purchase order reply
-                    System.out.println("Waiting for reply");
+                    //System.out.println("Waiting for reply");
                     reply = myAgent.receive(mt);
                     if (reply != null) {
-                        System.out.println("I did get an inform reply &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                        //System.out.println("I did get an inform reply &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                         // Purchase order reply received
                         if (reply.getPerformative() == ACLMessage.INFORM) {
                             // Purchase successful. We can terminate
-                            System.out.println(bill.getJson().toString() + " successfully purchased. VVVVVVVVVVVVVVVVVVVVVVVVVv");
+                            System.out.println(bill.getJson().toString() + " successfully purchased.");
                             System.out.println("Bill Price = " + bestPrice);
                             //add food to storage
                             foodStorage.addFood(bill);
@@ -252,7 +252,7 @@ public class StorageAgent extends Agent {
                         }
                         step = 4;
                     } else {
-                        System.out.println("I didnt get an inform reply QQQQQQQQQQQQQQQQQQQQQQQQQ");
+                        //System.out.println("I didnt get an inform reply QQQQQQQQQQQQQQQQQQQQQQQQQ");
                         block();
                     }
                     break;

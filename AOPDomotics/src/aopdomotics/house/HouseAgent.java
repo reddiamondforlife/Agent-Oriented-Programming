@@ -53,11 +53,9 @@ public class HouseAgent extends Agent
             ex.printStackTrace();
         }
 
-        //personAgent = Helper.getAgent(this, "person");
-        //multimediaAgent = Helper.getAgent(this, "multimedia");
+        personAgent = Helper.getAgent(this, "person");
+        multimediaAgent = Helper.getAgent(this, "multimedia");
         airQualityAgent = Helper.getAgent(this, "airquality");
-
-        addBehaviour(new InformHandler());
         
         addBehaviour(new AirSensorComfortHandler(this, 20.0f));
 
@@ -74,38 +72,7 @@ public class HouseAgent extends Agent
             fe.printStackTrace();
         }
         System.out.println("House-agent" + getAID().getName() + " terminating.");
-    }
-
-    private class InformHandler extends CyclicBehaviour
-    {
-
-        @Override
-        public void action()
-        {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
-            ACLMessage msg = myAgent.receive(mt);
-            if (msg != null)
-            {
-                // Message received. Process it 
-                System.out.println("House got an inform message");
-                String content = msg.getContent();
-                if (content.startsWith("Stress: "))
-                {
-                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ") + "Stress: ".length()));
-                    System.out.println("HOUSE: Found stress level " + stressLevel);
-
-                } else
-                {
-                    System.out.println("Unknown message");
-                }
-            } else
-            {
-                block();
-            }
-        }
-
-    }
-    
+    }    
     
     private class AirSensorComfortHandler extends OneShotBehaviour{
 

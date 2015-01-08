@@ -49,7 +49,8 @@ public class PersonAgent extends Agent {
 
         houseAgent = Helper.getAgent(this,"house");
         multimediaAgent = Helper.getAgent(this,"multimedia");
-        addBehaviour(new GeneralBehaviour(this, 500));
+        recipeAgent = Helper.getAgent(this,"recipe");
+        addBehaviour(new GeneralBehaviour(this, 1000));
         
         /*addBehaviour(new TickerBehaviour(this, 24000) {
          @Override
@@ -93,7 +94,7 @@ public class PersonAgent extends Agent {
         private int step = 0;
 
         public void action() {
-            System.out.println("Action step " + step);
+            //System.out.println("Action step " + step);
             switch (step) {
                 case 0:
                     // Send the cfp to all sellers
@@ -116,12 +117,12 @@ public class PersonAgent extends Agent {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             // This is an offer
                             String recipe = reply.getContent();
-                            System.out.println("Received an recipe from " + reply.getSender() + " with " + recipe);
+                            //System.out.println("Received an recipe from " + reply.getSender() + " with " + recipe);
                         }
 
                         step = 2;
                     } else {
-                        System.out.println("Got no message");
+                        //System.out.println("Got no message");
                         block();
                     }
                     break;
@@ -141,10 +142,10 @@ public class PersonAgent extends Agent {
                     break;
                 case 3:
                     // Receive the purchase order reply
-                    System.out.println("Waiting for reply");
+                    //System.out.println("Waiting for reply");
                     reply = myAgent.receive(mt);
                     if (reply != null) {
-                        System.out.println("I did get an inform reply <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                        //System.out.println("I did get an inform reply <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                         // Purchase order reply received
                         if (reply.getPerformative() == ACLMessage.INFORM) {
                             // Purchase successful. We can terminate
@@ -153,7 +154,7 @@ public class PersonAgent extends Agent {
                         }
                         step = 4;
                     } else {
-                        System.out.println("I didnt get an inform reply -----------------------------------------");
+                        //System.out.println("I didnt get an inform reply -----------------------------------------");
                         block();
                     }
                     break;
@@ -223,6 +224,7 @@ public class PersonAgent extends Agent {
         
         public void onTick() {
             System.out.println("On breakfast");
+            myAgent.addBehaviour(new PersonAgent.RecipeRequestPerformer());
         }
     }
     
@@ -246,6 +248,7 @@ public class PersonAgent extends Agent {
         
         public void onTick() {
             System.out.println("On dinner");
+            myAgent.addBehaviour(new PersonAgent.RecipeRequestPerformer());
         }
     }
     

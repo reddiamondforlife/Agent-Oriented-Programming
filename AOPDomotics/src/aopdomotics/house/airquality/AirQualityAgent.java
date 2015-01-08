@@ -126,7 +126,7 @@ public class AirQualityAgent extends Agent
         protected void onTick() {
             temperatureFluctuation();
             checkAirTemperature();
-            printAirTemperature();
+            //printAirTemperature();
         }
         
         
@@ -141,9 +141,9 @@ public class AirQualityAgent extends Agent
             if (msg != null) {
                 // Message received. Process it 
                 String content = msg.getContent();
-                System.out.println("Comfort handler");
+                //System.out.println("Comfort handler");
                 float comfort = Float.parseFloat(content);
-                System.out.println("Comfort level : " + comfort);
+                //System.out.println("Comfort level : " + comfort);
                 comfortableTemperature = comfort;
             } else {
                 block();
