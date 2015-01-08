@@ -5,12 +5,17 @@
  */
 package aopdomotics.house;
 
+import aopdomotics.house.airquality.Heater;
+import aopdomotics.house.airquality.AirQualityAgent;
+import aopdomotics.house.airquality.Window;
 import aopdomotics.Helper;
 import aopdomotics.person.PersonAgent;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -24,63 +29,106 @@ import java.util.logging.Logger;
  *
  * @author Daan
  */
-public class HouseAgent extends Agent {
+public class HouseAgent extends Agent
+{
 
     protected AID personAgent;
-    
+
     protected AID multimediaAgent;
 
-    protected void setup() {
+    protected AID airQualityAgent;
+
+    protected void setup()
+    {
         // Printout a welcome message
         System.out.println("Hello! House-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "house-agent", "JADE-House-Agent");
 
-        try {
+        try
+        {
             Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(HouseAgent.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (InterruptedException ex)
+        {
+            ex.printStackTrace();
         }
 
-        personAgent     = Helper.getAgent(this, "person");
-        multimediaAgent = Helper.getAgent(this, "multimedia");
-        
+        //personAgent = Helper.getAgent(this, "person");
+        //multimediaAgent = Helper.getAgent(this, "multimedia");
+        airQualityAgent = Helper.getAgent(this, "airquality");
+
         addBehaviour(new InformHandler());
         
+        addBehaviour(new AirSensorComfortHandler(this, 20.0f));
+
     }
 
-    
-
-    protected void takeDown() {
+    protected void takeDown()
+    {
         // Deregister from the yellow pages
-        try {
+        try
+        {
             DFService.deregister(this);
-        } catch (FIPAException fe) {
+        } catch (FIPAException fe)
+        {
             fe.printStackTrace();
         }
         System.out.println("House-agent" + getAID().getName() + " terminating.");
     }
 
-    private class InformHandler extends CyclicBehaviour {
-        
+    private class InformHandler extends CyclicBehaviour
+    {
+
         @Override
-        public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM); 
+        public void action()
+        {
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
             ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
+            if (msg != null)
+            {
                 // Message received. Process it 
                 System.out.println("House got an inform message");
                 String content = msg.getContent();
-                if(content.startsWith("Stress: ")){
-                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ")+ "Stress: ".length()));
+                if (content.startsWith("Stress: "))
+                {
+                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ") + "Stress: ".length()));
                     System.out.println("HOUSE: Found stress level " + stressLevel);
-                    
-                } else {
+
+                } else
+                {
                     System.out.println("Unknown message");
                 }
-            } else {
+            } else
+            {
                 block();
             }
         }
 
     }
+    
+    
+    private class AirSensorComfortHandler extends OneShotBehaviour{
+
+        float preference;
+        
+        public AirSensorComfortHandler(Agent a, float preference) {
+            super(a);
+            this.preference = preference;
+        }
+
+        @Override
+        public void action() {
+            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+            //System.out.println("Sending stress to " + super.houseAgent);
+            msg.addReceiver(airQualityAgent);
+            msg.setConversationId("comfort-update");
+            msg.setContent(String.valueOf(preference));  
+            send(msg);
+        }
+
+        
+        
+        
+    }
+    
 }

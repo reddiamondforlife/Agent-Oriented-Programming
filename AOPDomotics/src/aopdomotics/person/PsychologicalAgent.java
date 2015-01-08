@@ -39,9 +39,8 @@ public class PsychologicalAgent extends PersonAgent {
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         //System.out.println("Sending stress to " + super.houseAgent);
         msg.addReceiver(super.multimediaAgent);
-        msg.setLanguage("English");  
-        msg.setOntology("Psychological-"+name.toLowerCase()+"-ontology"); 
-        msg.setContent(name+": "+variable);  
+        msg.setConversationId(name+"-notify");
+        msg.setContent(String.valueOf(variable));  
         send(msg);
     }
 

@@ -29,7 +29,7 @@ public class MultimediaAgent extends HouseAgent {
         
         musicPlayer = new MusicPlayer();
         
-        addBehaviour(new InformHandler());
+        addBehaviour(new StressInformHandler());
 
     }
 
@@ -38,23 +38,20 @@ public class MultimediaAgent extends HouseAgent {
     } 
 
      
-    private class InformHandler extends CyclicBehaviour {
+    private class StressInformHandler extends CyclicBehaviour {
         
         @Override
         public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM); 
+            MessageTemplate mt = MessageTemplate.MatchConversationId("stress-notify");
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // Message received. Process it 
                 System.out.println("Multimedia got an inform message");
                 String content = msg.getContent();
-                if(content.startsWith("Stress: ")){
-                    int stressLevel = Integer.parseInt(content.substring(content.indexOf("Stress: ")+ "Stress: ".length()));
-                    System.out.println("MULTI: Found stress level " + stressLevel);
-                    musicPlayer.setMood(stressLevel);
-                } else {
-                    System.out.println("Unknown message");
-                }
+              
+                int stressLevel = Integer.parseInt(content);
+                System.out.println("MULTI: Found stress level " + stressLevel);
+                musicPlayer.setMood(stressLevel);
             } else {
                 block();
             }
