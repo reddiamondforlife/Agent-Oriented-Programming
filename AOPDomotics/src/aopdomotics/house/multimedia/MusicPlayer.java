@@ -18,12 +18,13 @@ public class MusicPlayer {
     MusicGenre ambianceMusic;
     
     MusicGenre currentMusic;
-    
+    boolean play;
     static ArrayList<Song> songs = new ArrayList<>();
 
-    public MusicPlayer() {
+    public MusicPlayer(boolean play) {
+        this.play = play;
         initSongs();
-        
+        currentMusic = favoriteMusic;
         setMusicGenre(MusicGenreEnum.favorite);
     }
     
@@ -48,7 +49,9 @@ public class MusicPlayer {
             
         } else {
             currentMusic = getNewPlaylist(genre);
-            System.out.println("Now Playing " + currentMusic.genre.name()+ " " + currentMusic.getPlaylist().getPlaying());
+            if(this.play){
+                System.out.println("Now Playing " + currentMusic.genre.name()+ " " + currentMusic.getPlaylist().getPlaying());
+            }
         }
         
     }
@@ -62,5 +65,15 @@ public class MusicPlayer {
             return favoriteMusic;
         }
         return currentMusic;
+    }
+    
+    public void turnOn(){
+        this.play = true;
+        System.out.println("Now Playing " + currentMusic.genre.name()+ " " + currentMusic.getPlaylist().getPlaying());
+    }
+    
+    public void turnOff(){
+        this.play = false;
+        System.out.println("Stopped playing music");
     }
 }

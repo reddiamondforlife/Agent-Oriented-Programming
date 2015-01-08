@@ -7,6 +7,9 @@ package aopdomotics.house.multimedia;
 
 import aopdomotics.Helper;
 import aopdomotics.house.HouseAgent;
+import static aopdomotics.storage.StorageAgent.bill;
+import aopdomotics.storage.food.FoodJsonDecoder;
+import aopdomotics.storage.recipe.Recipe;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
@@ -27,10 +30,10 @@ public class MultimediaAgent extends HouseAgent {
         System.out.println("Hello! Multimedia-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "multimedia-agent", "JADE-Multimedia-Agent");
         
-        musicPlayer = new MusicPlayer();
+        musicPlayer = new MusicPlayer(false);
         
         addBehaviour(new StressInformHandler());
-
+        addBehaviour(new MusicListenerHandler());
     }
 
     protected void adjustMusicGenre() {
@@ -46,11 +49,10 @@ public class MultimediaAgent extends HouseAgent {
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // Message received. Process it 
-                System.out.println("Multimedia got an inform message");
+                //System.out.println("Multimedia got an inform message");
                 String content = msg.getContent();
-              
                 int stressLevel = Integer.parseInt(content);
-                System.out.println("MULTI: Found stress level " + stressLevel);
+                //System.out.println("MULTI: Found stress level " + stressLevel);
                 musicPlayer.setMood(stressLevel);
             } else {
                 block();
@@ -69,4 +71,28 @@ public class MultimediaAgent extends HouseAgent {
         System.out.println("Multimedia-agent" + getAID().getName() + " terminating.");
     }
    
+    
+    private class MusicListenerHandler extends CyclicBehaviour {
+
+        @Override
+        public void action() {
+            
+            MessageTemplate mt = MessageTemplate.MatchConversationId("music-status");
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+                // Message received. Process it 
+                //System.out.println("Music listener");
+                String musicMessage = msg.getContent();
+                if(musicMessage.equals("on")){
+                    musicPlayer.turnOn();
+                } else if(musicMessage.equals("off")){
+                    musicPlayer.turnOff();
+                }
+                
+            } else {
+                block();
+            }
+        }
+
+    }
 }

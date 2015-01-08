@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 AOPDomotics/build/
+=======
+AOPDomotics/build/classes/
+AOPDomotics/build/
+*.stackdump
+>>>>>>> feature/Storage
 /AOPDomotics/dist/

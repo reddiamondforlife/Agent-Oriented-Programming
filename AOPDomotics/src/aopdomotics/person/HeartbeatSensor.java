@@ -23,6 +23,6 @@ public class HeartbeatSensor {
     
     public void generateStressLevel() {
         stress = (int) Math.pow(Math.random() * 10.0,2.0);//getBloodPressure(); in physical
-        System.out.println("New Stress Level " + stress);
+        //System.out.println("New Stress Level " + stress);
     }
 }

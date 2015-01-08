@@ -56,20 +56,49 @@ public class Helper
             try
             {
                 result = DFService.search(agent, template);
-                //System.out.println("Added " + name + " Agent AID");
-                if (result.length == 0)
-                {
-                    Thread.sleep(1000);
-                    continue;
+                
+                if(result.length == 0){
+                    return null;
                 }
+                System.out.println("Added " + name + " Agent AID");
+                
                 return result[0].getName();
 
             } catch (FIPAException ex)
             {
                 System.out.println("FIPA ERROR");
-            } catch (InterruptedException ex)
-            {
-                System.out.println("DELAY ERROR");
+            }
+            return null;
+        }
+    }
+    
+    public static AID[] getAgents(Agent agent, String name) {
+        while(true){
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType(name+"-agent");
+            template.addServices(sd);
+            DFAgentDescription[] result;
+            
+            try {
+                result = DFService.search(agent, template);
+                
+                if(result.length == 0){
+                    return null;
+                }
+                System.out.println("Added " + name + " Agent AID");
+                
+                //Copy the names of the results to an AID array and return this array.
+                AID[] agents = new AID[result.length];
+                for(int i = 0; i < result.length; i++){
+                   agents[i] = result[i].getName();
+                }
+                
+                return agents;
+
+            } catch (FIPAException ex) {
+                System.out.println("FIPA ERROR");
+
             }
             return null;
         }
