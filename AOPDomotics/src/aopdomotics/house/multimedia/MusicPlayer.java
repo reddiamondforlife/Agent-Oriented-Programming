@@ -35,9 +35,9 @@ public class MusicPlayer {
     }
     
     public void setMood(int mood){
-        if(mood > 75){
+        if(mood > 30){
             setMusicGenre(MusicGenreEnum.classical);
-        } else if(mood > 25){
+        } else if(mood > 10){
             setMusicGenre(MusicGenreEnum.favorite);
         } else if(mood > 0){
             setMusicGenre(MusicGenreEnum.ambiance);

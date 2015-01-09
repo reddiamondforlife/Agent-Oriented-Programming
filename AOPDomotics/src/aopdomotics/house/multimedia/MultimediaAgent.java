@@ -34,6 +34,7 @@ public class MultimediaAgent extends HouseAgent {
         
         addBehaviour(new StressInformHandler());
         addBehaviour(new MusicListenerHandler());
+        addBehaviour(new LocationInformHandler());
     }
 
     protected void adjustMusicGenre() {
@@ -52,7 +53,7 @@ public class MultimediaAgent extends HouseAgent {
                 //System.out.println("Multimedia got an inform message");
                 String content = msg.getContent();
                 int stressLevel = Integer.parseInt(content);
-                //System.out.println("MULTI: Found stress level " + stressLevel);
+                System.out.println("MULTI: Found stress level " + stressLevel);
                 musicPlayer.setMood(stressLevel);
             } else {
                 block();
@@ -86,6 +87,32 @@ public class MultimediaAgent extends HouseAgent {
                 if(musicMessage.equals("on")){
                     musicPlayer.turnOn();
                 } else if(musicMessage.equals("off")){
+                    musicPlayer.turnOff();
+                }
+                
+            } else {
+                block();
+            }
+        }
+
+    }
+    
+    private class LocationInformHandler extends CyclicBehaviour {
+
+        @Override
+        public void action() {
+            
+            MessageTemplate mt = MessageTemplate.MatchConversationId("location-notify");
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+                // Message received. Process it 
+                
+                String locationMessage = msg.getContent();
+                if(locationMessage.equals("Home")){
+                    musicPlayer.turnOn();
+                    System.out.println("Person is home, turning on music ");
+                } else{
+                    System.out.println("Person is Not home, turning off music Location: "+locationMessage);
                     musicPlayer.turnOff();
                 }
                 
