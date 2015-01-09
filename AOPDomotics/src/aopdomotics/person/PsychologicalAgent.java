@@ -19,22 +19,34 @@ import jade.lang.acl.ACLMessage;
 public class PsychologicalAgent extends PersonAgent {
     
     private HeartbeatSensor heartBeat;
-
+    private BloodPressure bloodPressure;
+    private Location location;
     protected void setup() {
         // Printout a welcome message
         System.out.println("Hello! Psychological-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "psychological-agent", "JADE-Psychological-Agent");
 
         heartBeat = new HeartbeatSensor();
-        
+        bloodPressure= new BloodPressure();
+        location=new Location();
         addBehaviour(new TickerBehaviour(this, 1000) {
             protected void onTick() {
-                notifyMultimedia("Stress",heartBeat.getStressLevel());
+                System.out.println();
+                notifyMultimedia("stress",(int)((double)heartBeat.getStressLevel()/(double)bloodPressure.getBloodpressure()*100));
+                notifyMultimediaLocation("location",location.getLocation());
             }
         });
 
     }
-    
+      protected void notifyMultimediaLocation(String name, String variable) {
+        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+        //System.out.println("Sending location to " + super.houseAgent);
+        msg.addReceiver(super.multimediaAgent);
+        msg.setConversationId(name+"-notify");
+        msg.setContent(String.valueOf(variable));  
+        send(msg);
+      }
+      
     protected void notifyMultimedia(String name, int variable) {
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         //System.out.println("Sending stress to " + super.houseAgent);

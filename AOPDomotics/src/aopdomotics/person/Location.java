@@ -12,27 +12,13 @@ import java.util.Random;
  * @author Daniel
  */
 public class Location {
-    float latitude;
-    float longitude;
+  String[] locations = {"Home","Work","Metro","Bike","Car","Somwhere"};
     
-    public float getLatitude(){
-        generateLatitude();
-        return latitude;
+    public String getLocation(){
+        int idx = new Random().nextInt(locations.length);
+        String random = (locations[idx]);
+        return random;
     }
-    public float getLongitude(){
-        generateLongitude();
-        return longitude;
-    }
-    public void generateLatitude(){
-      Random r = new Random();
-    float Low = 0f;
-    float High = 50f;
-    latitude = r.nextFloat()*(High-Low) + Low;    
-    }
-    public void generateLongitude(){
-         Random r = new Random();
-    float Low = 0f;
-    float High = 50f;
-    longitude = r.nextFloat()*(High-Low) + Low;     
-    }
+   
+  
 }
