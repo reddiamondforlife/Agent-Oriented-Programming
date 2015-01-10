@@ -53,7 +53,7 @@ public class MultimediaAgent extends HouseAgent {
                 //System.out.println("Multimedia got an inform message");
                 String content = msg.getContent();
                 int stressLevel = Integer.parseInt(content);
-                System.out.println("MULTI: Found stress level " + stressLevel);
+                //System.out.println("MULTI: Found stress level " + stressLevel);
                 musicPlayer.setMood(stressLevel);
             } else {
                 block();

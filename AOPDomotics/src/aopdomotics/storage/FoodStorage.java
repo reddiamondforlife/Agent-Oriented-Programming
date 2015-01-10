@@ -92,11 +92,10 @@ public class FoodStorage {
     public JsonObject getStorage(){
         JsonObject storage = new JsonObject();
         
-        JsonArray foodItems = new JsonArray();
+        JsonObject foodItems = new JsonObject();
+        
         for(Food item : foods){
-            JsonObject jsonItem = new JsonObject();
-            jsonItem.addProperty(item.getClass().getSimpleName(), item.getQuantity());
-            foodItems.add(jsonItem);
+            foodItems.addProperty(item.getClass().getSimpleName().toLowerCase(), item.getQuantity());   
         }
         
         storage.add("Storage", foodItems);

@@ -7,6 +7,8 @@ package aopdomotics.storage;
 
 import aopdomotics.Helper;
 import aopdomotics.house.HouseAgent;
+import aopdomotics.storage.food.Food;
+import aopdomotics.storage.food.FoodJsonDecoder;
 import aopdomotics.storage.food.dairy.Butter;
 import aopdomotics.storage.food.dairy.Cheese;
 import aopdomotics.storage.food.dairy.Milk;
@@ -33,6 +35,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,11 +54,15 @@ public class RecipeAgent extends Agent {
 
     Recipe selectedRecipe;
 
+    ArrayList<Food> catalogue;
+    
     protected void setup() {
         // Printout a welcome message
         System.out.println("Hello! Recipe-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "recipe-agent", "JADE-Recipe-Agent");
 
+        catalogue = new ArrayList<>();
+        
         //Create common recipes with three types of food
         analyzer = new RecipeAnalyzer();
         analyzer.recipes.add(new RecipePreference(new Recipe("Rice with chicken and tomato", new Rice(3, 0, 0), new Chicken(2, 0, 0), new Tomato(1, 0, 0)), 0));
@@ -107,7 +114,9 @@ public class RecipeAgent extends Agent {
                 //select random recipe
                 Random r = new Random();
                 int randomNum = r.nextInt(analyzer.recipes.size()); //get index of a random recipe
-                selectedRecipe = analyzer.recipes.get(randomNum).recipe; //get the random recipe
+                
+                selectedRecipe = analyzer.getAvailableRecipes().get(randomNum).recipe; //get the random recipe
+                System.out.println("Selected Recipe: " + selectedRecipe.toString());
                 //Send the name of the recipe
                 reply.setContent(selectedRecipe.getName());
                 myAgent.send(reply);
@@ -161,11 +170,14 @@ public class RecipeAgent extends Agent {
             if (msg != null) {
                 // Message received. Process it 
                 //System.out.println("Storage inform about storage items");
-                String content = msg.getContent();
+                String storageUpdate = msg.getContent();
                 //System.out.println("Storage inform : " + content);
                 //parse json 
-
+                
+                catalogue = FoodJsonDecoder.decodeStorage(storageUpdate);
                 //prepare recipes 
+                analyzer.inventoryRecipes(catalogue);
+                
             } else {
                 block();
             }

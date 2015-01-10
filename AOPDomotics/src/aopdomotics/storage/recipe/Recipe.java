@@ -44,7 +44,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "Recipe: " + name + " { " + component1.toString() + " , " + component2.toString() + " , " + component3.toString() + " } "; //To change body of generated methods, choose Tools | Templates.
     }
     
     public JsonObject getJson(){

@@ -260,6 +260,7 @@ public class PersonAgent extends Agent {
         
         public void onTick() {
             System.out.println("On multimedia");
+            
             ACLMessage cfp = new ACLMessage(ACLMessage.INFORM);
             cfp.addReceiver(multimediaAgent);
             cfp.setContent("on");

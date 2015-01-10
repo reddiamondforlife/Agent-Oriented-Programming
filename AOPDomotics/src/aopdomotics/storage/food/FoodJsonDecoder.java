@@ -107,6 +107,19 @@ public class FoodJsonDecoder {
             return recipe;
         }
         
+        public static ArrayList<Food> decodeStorage(String storageJson){
+            System.out.println("Storage Json :  " + storageJson);
+            JsonElement jelement = new JsonParser().parse(storageJson);
+            JsonObject json = jelement.getAsJsonObject();
+
+            JsonElement storageElement = json.get("Storage");
+            System.out.println("Storage JSON " + storageElement.toString());
+
+            Gson gson = new GsonBuilder().create();
+            FoodJsonDecoder recipedecoder = gson.fromJson(storageElement, FoodJsonDecoder.class);
+            return recipedecoder.foodList();
+        }
+        
         public ArrayList<Food> foodList(){
             ArrayList<Food> foods = new ArrayList<>();
             foods.add(new Bread(bread,0,0));

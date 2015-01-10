@@ -11,6 +11,8 @@ import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,13 +27,17 @@ public class PhysicalAgent extends PersonAgent {
         System.out.println("Hello! Physical-agent " + getAID().getName() + " is ready.");
         Helper.registerAgent(this, getAID(), "physical-agent", "JADE-Physical-Agent");
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PhysicalAgent.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        
-        /*addBehaviour(new TickerBehaviour(this, 1000) {
+        addBehaviour(new TickerBehaviour(this, 1000) {
             protected void onTick() {
                 notifyMultimedia("Stress",heartBeat.getStressLevel());
             }
-        });*/
+        });
 
     }
     
@@ -51,6 +57,6 @@ public class PhysicalAgent extends PersonAgent {
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
-        System.out.println("Psychological-agent" + getAID().getName() + " terminating.");
+        System.out.println("Physical-agent" + getAID().getName() + " terminating.");
     }
 }
