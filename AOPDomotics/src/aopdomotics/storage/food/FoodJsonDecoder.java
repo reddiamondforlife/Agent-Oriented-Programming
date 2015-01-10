@@ -45,6 +45,11 @@ public class FoodJsonDecoder {
         public int tomato = 0;
         public int potato = 0;
         
+        /**
+         * Calculate price using pricelist and amount of food items from this class
+         * @param magazinList
+         * @return 
+         */
         public float billPrice(ArrayList<Food> magazinList){
             float totalPrice = 0.0f;
             System.out.println("Getting bill price");
@@ -72,6 +77,12 @@ public class FoodJsonDecoder {
             return totalPrice;
         }
         
+        /**
+         * Decode bill, using storage array(with prices) and bill json and return total price.
+         * @param billJson
+         * @param magazinList
+         * @return 
+         */
          public static float decodeBill(String billJson, ArrayList<Food> magazinList){
 
             JsonElement jelement = new JsonParser().parse(billJson);
@@ -86,6 +97,11 @@ public class FoodJsonDecoder {
             return billdecoder.billPrice(magazinList);
         }
          
+         /**
+          * Decode recipe using the three food items from json recipe.
+          * @param recipeJson
+          * @return 
+          */
         public static Recipe decodeRecipe(String recipeJson){
             Recipe recipe;
             Food[] component = new Food[3];
@@ -107,6 +123,11 @@ public class FoodJsonDecoder {
             return recipe;
         }
         
+        /**
+         * Decode storage update json, return entire catalogue list
+         * @param storageJson
+         * @return 
+         */
         public static ArrayList<Food> decodeStorage(String storageJson){
             System.out.println("Storage Json :  " + storageJson);
             JsonElement jelement = new JsonParser().parse(storageJson);
@@ -120,6 +141,10 @@ public class FoodJsonDecoder {
             return recipedecoder.foodList();
         }
         
+        /**
+         * Return all parsed food items.
+         * @return 
+         */
         public ArrayList<Food> foodList(){
             ArrayList<Food> foods = new ArrayList<>();
             foods.add(new Bread(bread,0,0));

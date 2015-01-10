@@ -6,7 +6,6 @@
 package aopdomotics.storage;
 
 import aopdomotics.Helper;
-import aopdomotics.house.HouseAgent;
 import aopdomotics.storage.food.Food;
 import aopdomotics.storage.food.FoodJsonDecoder;
 import aopdomotics.storage.food.dairy.Butter;
@@ -24,23 +23,12 @@ import aopdomotics.storage.food.meat.Chicken;
 import aopdomotics.storage.food.vegetable.Onion;
 import aopdomotics.storage.food.vegetable.Potato;
 import aopdomotics.storage.food.vegetable.Tomato;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Random;
 import java.util.logging.Level;
@@ -106,19 +94,8 @@ public class SupermarketAgent extends Agent {
     }
 
     /**
-     * This is invoked by the GUI when the user adds a new book for sale
-     * @param title
-     * @param price
+     * Wait for storage agent for CFP and propose a bill price, from the billstring json which contains the items on the grocery bill
      */
-    public void updateCatalogue(final String title, final int price) {
-        addBehaviour(new OneShotBehaviour() {
-            public void action() {
-                //catalogue.put(title, price);
-            }
-        });
-    }
-
-
     private class OfferRequestsServer extends CyclicBehaviour {
 
         @Override
@@ -142,6 +119,9 @@ public class SupermarketAgent extends Agent {
         }
     }
     
+    /**
+     * Wait for proposal to accept a possible recipe, just reply we want the recipe.
+     */
     private class PurchaseOrdersServer extends CyclicBehaviour {
 
         @Override

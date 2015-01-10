@@ -94,6 +94,8 @@ public class StorageAgent extends Agent {
 
         supermarketAgents = Helper.getAgents(this, "supermarket");
         
+        recipeAgent = Helper.getAgent(this, "recipe");
+        
         addBehaviour(new TickerBehaviour(this, 24000) {
             protected void onTick() {
                 if (bill.foods.isEmpty()) {
@@ -110,18 +112,12 @@ public class StorageAgent extends Agent {
 
     }
 
+    
+    /**
+     * Inform recipe agent of new storage item quantities 
+     * @param myAgent 
+     */
     public void storageInformRecipe(Agent myAgent) {
-        //System.out.println("On tick .");
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("recipe-agent");
-        template.addServices(sd);
-        try {
-            DFAgentDescription[] result = DFService.search(myAgent, template);
-            recipeAgent = result[0].getName();
-        } catch (FIPAException fe) {
-        }
-        // Perform the request
 
         ACLMessage storageInform = new ACLMessage(ACLMessage.INFORM);
         storageInform.addReceiver(recipeAgent);
@@ -141,6 +137,9 @@ public class StorageAgent extends Agent {
         System.out.println("Storage-agent" + getAID().getName() + " terminating.");
     }
 
+    /**
+     * Wait for recipe inform to decrease food storage with the consumed recipe and recheck bill
+     */
     private class RecipeInformHandler extends CyclicBehaviour {
 
         @Override

@@ -1,8 +1,6 @@
 package aopdomotics.house.airquality;
 
 import aopdomotics.Helper;
-import aopdomotics.house.HouseAgent;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
@@ -115,7 +113,9 @@ public class AirQualityAgent extends Agent
         this.comfortableTemperature = temperature;
     }
     
-    
+    /**
+     * Tick every time and fuctuate temperature and check the air temperature
+     */
     public class SimulateAirFlow extends TickerBehaviour{
 
         public SimulateAirFlow(Agent a, long period) {
@@ -132,6 +132,9 @@ public class AirQualityAgent extends Agent
         
     }
     
+    /**
+     * Wait for new comfort level from any agent
+     */
     public class ComfortHandler extends CyclicBehaviour{
 
         @Override

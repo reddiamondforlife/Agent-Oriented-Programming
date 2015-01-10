@@ -1,13 +1,5 @@
 package aopdomotics.house.airquality;
 
-import aopdomotics.Helper;
-import jade.core.AID;
-import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import java.util.Random;
-
 /**
  * @author Nick Leijenhorst
  *

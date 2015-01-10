@@ -30,8 +30,6 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -97,6 +95,9 @@ public class RecipeAgent extends Agent {
         System.out.println("Recipe-agent" + getAID().getName() + " terminating.");
     }
 
+    /**
+     * Wait for CFP to send available recipe to person back.
+     */
     private class UserCFPHandler extends CyclicBehaviour {
 
         @Override
@@ -127,6 +128,9 @@ public class RecipeAgent extends Agent {
 
     }
 
+    /**
+     * Wait for accepting proposal message from person , and inform storage agent of accepted recipe
+     */
     private class RecipeAcceptServer extends CyclicBehaviour {
 
         @Override
@@ -160,6 +164,9 @@ public class RecipeAgent extends Agent {
         }
     }
 
+    /**
+     * Wait for storage update inform message which grants new information about available food items and calculate which 
+     */
     private class StorageInformHandler extends CyclicBehaviour {
 
         @Override

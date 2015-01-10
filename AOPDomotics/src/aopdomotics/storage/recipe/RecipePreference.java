@@ -16,7 +16,7 @@ public class RecipePreference {
 
     public Recipe recipe;
     public int karma; //choice preference
-    public boolean enoughResources;
+    public boolean enoughResources; //could be crafted using storage information
 
     public RecipePreference(Recipe recipe, int karma) {
         this.recipe = recipe;
@@ -24,6 +24,10 @@ public class RecipePreference {
         enoughResources = false;
     }
 
+    /**
+     * Check if every item in a recipe could be crafted using the storage information.
+     * @param foods 
+     */
     public void checkInventory(ArrayList<Food> foods) {
         Food item1 = null;
         Food item2 = null;

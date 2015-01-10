@@ -7,7 +7,6 @@ package aopdomotics.storage;
 
 import aopdomotics.storage.recipe.Recipe;
 import aopdomotics.storage.food.Food;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
@@ -26,6 +25,10 @@ public class FoodStorage {
         return foods;
     }
     
+    /**
+     * Add food to storage
+     * @param food 
+     */
     public void addFood(Food food){
         //Add food items, and set new quantity in storage
         boolean found = false;
@@ -44,6 +47,10 @@ public class FoodStorage {
         }
     }
     
+    /**
+     * Add bought storage bill to storage
+     * @param bill 
+     */
     public void addFood(GroceryBill bill){
         //Add items after bought items from the grocery bill
         for(Food item : bill.getFoods()){
@@ -56,6 +63,11 @@ public class FoodStorage {
         System.out.println("Food Storage :\n"+getStorage().toString());
     }
 
+    
+    /**
+     * User eats specific recipe, then remove the items from the recipe from the storage.
+     * @param recipe 
+     */
     public void removeFood(Recipe recipe){
         //Get recipe and remove all three items from the storage
         Food[] consumed = new Food[3];
@@ -77,6 +89,10 @@ public class FoodStorage {
         }
     }
     
+    /**
+     * Check if all food items on or above rebuy limit
+     * @return 
+     */
     public GroceryBill checkStorageRebuy(){
         System.out.println("for the next time my shopping list needs to contain");
         GroceryBill bill = new GroceryBill();
@@ -89,6 +105,10 @@ public class FoodStorage {
         return bill;
     }
     
+    /**
+     * Return JSON from storage food items.
+     * @return 
+     */
     public JsonObject getStorage(){
         JsonObject storage = new JsonObject();
         

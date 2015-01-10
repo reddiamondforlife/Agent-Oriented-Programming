@@ -5,25 +5,13 @@
  */
 package aopdomotics.house;
 
-import aopdomotics.house.airquality.Heater;
-import aopdomotics.house.airquality.AirQualityAgent;
-import aopdomotics.house.airquality.Window;
 import aopdomotics.Helper;
-import aopdomotics.person.PersonAgent;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,17 +34,19 @@ public class HouseAgent extends Agent
 
         try
         {
-            Thread.sleep(1000);
+            Thread.sleep(1000); //wait a sec for all agents to register
         } 
         catch (InterruptedException ex)
         {
             ex.printStackTrace();
         }
 
+        //get agents
         personAgent = Helper.getAgent(this, "person");
         multimediaAgent = Helper.getAgent(this, "multimedia");
         airQualityAgent = Helper.getAgent(this, "airquality");
         
+        //Set comfort level for air sensor using ACL message in a one shot behaviour
         addBehaviour(new AirSensorComfortHandler(this, 20.0f));
 
     }
@@ -74,6 +64,9 @@ public class HouseAgent extends Agent
         System.out.println("House-agent" + getAID().getName() + " terminating.");
     }    
     
+    /**
+     * Send a message to air quality agent to update the comfort level
+     */
     private class AirSensorComfortHandler extends OneShotBehaviour{
 
         float preference;
@@ -92,10 +85,7 @@ public class HouseAgent extends Agent
             msg.setContent(String.valueOf(preference));  
             send(msg);
         }
-
-        
-        
-        
+       
     }
     
 }

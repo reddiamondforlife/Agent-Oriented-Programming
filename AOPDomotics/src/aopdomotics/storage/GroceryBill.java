@@ -25,6 +25,10 @@ public class GroceryBill {
         return foods;
     }
 
+    /**
+     * Return JSON for all food items on bill
+     * @return 
+     */
     public JsonObject getJson(){
         //Convert food items to json
         JsonObject storage = new JsonObject();

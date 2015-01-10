@@ -25,12 +25,21 @@ public class RecipeAnalyzer {
     public RecipeAnalyzer() {
     }
     
+    /**
+     * Check if recipes are able to be made, using storage information.
+     * @param foods 
+     */
     public void inventoryRecipes(ArrayList<Food> foods){
         
         for(RecipePreference recipe : recipes){
             recipe.checkInventory(foods);
         }
     }
+    
+    /**
+     * Get available recipes, using the enough resource variable in the recipe variable.
+     * @return 
+     */
     public ArrayList<RecipePreference> getAvailableRecipes(){
         ArrayList<RecipePreference> available = new ArrayList<>();
         

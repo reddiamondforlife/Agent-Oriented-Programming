@@ -6,7 +6,6 @@
 package aopdomotics.person;
 
 import aopdomotics.Helper;
-import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -21,6 +20,7 @@ import java.util.logging.Logger;
 public class PhysicalAgent extends PersonAgent {
     
     private HeartbeatSensor heartBeat;
+    private BloodPressure bloodPressure;
 
     protected void setup() {
         // Printout a welcome message
@@ -35,18 +35,24 @@ public class PhysicalAgent extends PersonAgent {
         
         addBehaviour(new TickerBehaviour(this, 1000) {
             protected void onTick() {
-                notifyMultimedia("Stress",heartBeat.getStressLevel());
+                notifyMultimedia("stress",(int)((double)heartBeat.getStressLevel()/(double)bloodPressure.getBloodpressure()*100));
+
             }
         });
 
     }
     
+    /**
+     * Notify multimedia agent on a variable name and a variable
+     * @param name
+     * @param variable 
+     */
     protected void notifyMultimedia(String name, int variable) {
         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
         //System.out.println("Sending stress to " + super.houseAgent);
         msg.addReceiver(super.multimediaAgent);
-        msg.setConversationId("multimedia-stress-status");
-        msg.setContent(name+": "+variable);  
+        msg.setConversationId(name+"-notify");
+        msg.setContent(String.valueOf(variable));  
         send(msg);
     }
 

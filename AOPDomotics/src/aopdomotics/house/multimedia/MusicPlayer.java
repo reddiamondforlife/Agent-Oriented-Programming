@@ -34,7 +34,7 @@ public class MusicPlayer {
         ambianceMusic = new MusicGenre(MusicGenreEnum.ambiance);
     }
     
-    public void setMood(int mood){
+    public void setMusic(int mood){
         if(mood > 30){
             setMusicGenre(MusicGenreEnum.classical);
         } else if(mood > 10){

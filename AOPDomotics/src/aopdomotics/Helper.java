@@ -11,9 +11,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +19,16 @@ import java.util.logging.Logger;
 public class Helper
 {
 
+    /**
+     * Register an agent 
+     * @param agent current agent
+     * @param agentName name of agent (identifier)
+     * @param serviceType type
+     * @param serviceName name
+     * @return 
+     */
     public static boolean registerAgent(Agent agent, AID agentName, String serviceType, String serviceName)
-    { //this , getAID()
+    { 
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(agentName);
 
@@ -44,6 +49,12 @@ public class Helper
 
     }
 
+    /**
+     * Search and return an specific agent.
+     * @param agent
+     * @param name
+     * @return 
+     */
     public static AID getAgent(Agent agent, String name)
     {
         while (true)

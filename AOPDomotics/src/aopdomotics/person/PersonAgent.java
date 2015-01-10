@@ -6,18 +6,12 @@
 package aopdomotics.person;
 
 import aopdomotics.Helper;
-import aopdomotics.house.HouseAgent;
-import aopdomotics.storage.StorageAgent;
 import static aopdomotics.storage.StorageAgent.bill;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.OneShotBehaviour;
-import jade.core.behaviours.SimpleBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -52,26 +46,6 @@ public class PersonAgent extends Agent {
         recipeAgent = Helper.getAgent(this,"recipe");
         addBehaviour(new GeneralBehaviour(this, 1000));
         
-        /*addBehaviour(new TickerBehaviour(this, 24000) {
-         @Override
-         protected void onTick() {
-         System.out.println("On tick .");
-                
-         System.out.println(". want to eat");
-         // Update the list of seller agents
-         DFAgentDescription template = new DFAgentDescription();
-         ServiceDescription sd = new ServiceDescription();
-         sd.setType("recipe-agent");
-         template.addServices(sd);
-         try {
-         DFAgentDescription[] result = DFService.search(myAgent, template);
-         recipeAgent = result[0].getName();
-         } catch (FIPAException fe) {
-         }
-         // Perform the request
-         myAgent.addBehaviour(new PersonAgent.RecipeRequestPerformer());
-         }
-         });*/
     }
 
     protected void takeDown() {
@@ -85,8 +59,7 @@ public class PersonAgent extends Agent {
     }
 
     /**
-     * Inner class RequestPerformer. This is the behaviour used by Book-buyer
-     * agents to request seller agents the target book.
+     * Recipe request a recipe agent for possible recipes to eat.
      */
     private class RecipeRequestPerformer extends Behaviour {
 
@@ -198,6 +171,9 @@ public class PersonAgent extends Agent {
         }
     }
     
+    /**
+     * Sleep behaviour, turn off music before person goes to bed
+     */
     class SleepBehaviour extends TickerBehaviour {
 
         public SleepBehaviour(Agent a, long period) {
@@ -216,6 +192,9 @@ public class PersonAgent extends Agent {
         }
     }
 
+    /**
+     * Request a recipe for breakfast
+     */
     class BreakfastBehaviour extends TickerBehaviour {
 
         public BreakfastBehaviour(Agent a, long period) {
@@ -228,6 +207,9 @@ public class PersonAgent extends Agent {
         }
     }
     
+    /**
+     * Go to work ...
+     */    
     class WorkBehaviour extends TickerBehaviour {
 
         public WorkBehaviour(Agent a, long period) {
@@ -239,7 +221,9 @@ public class PersonAgent extends Agent {
         }
     }
     
-    
+    /**
+     * Request a dinner and turn on music
+     */
     class DinnerBehaviour extends TickerBehaviour {
 
         public DinnerBehaviour(Agent a, long period) {
