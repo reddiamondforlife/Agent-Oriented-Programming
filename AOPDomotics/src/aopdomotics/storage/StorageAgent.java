@@ -96,7 +96,7 @@ public class StorageAgent extends Agent {
         
         recipeAgent = Helper.getAgent(this, "recipe");
         
-        addBehaviour(new TickerBehaviour(this, 24000) {
+        addBehaviour(new TickerBehaviour(this, 12000) {
             protected void onTick() {
                 if (bill.foods.isEmpty()) {
                     //Dont have to buy items because the bill is empty/are no items on the lit
